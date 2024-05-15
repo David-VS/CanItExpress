@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Testjeuuuh</title>
+    </head>
+    
+    <body>
+        <form method="post" action="http://localhost:3000/users" target="_blank">
+            <label for="email">email</label>
+            <input id="email" name="email" type="text"></input>
+            <br/>
+            <label for="name">name</label>
+            <input id="name" name="name" type="text"></input>
+            <br/>
+            <input type="submit">Go go gooo</form>
+        </form>
+
+
+        <ul id="userlist"></ul>
+
+        <script>
+            const ul = document.getElementById('userlist');
+            const list = document.createDocumentFragment();
+            const url = 'http://localhost:3000/users';
+
+            fetch(url)
+                .then((response) => {
+                return response.json();
+                })
+                .then((json) => {
+                    
+                json.map(function(user) {
+                    let li = document.createElement('li');
+                    let name = document.createElement('span');
+                    let email = document.createElement('span');
+
+                    name.innerHTML = `${user.name} `;
+                    email.innerHTML = `${user.email}`;
+
+                    li.appendChild(name);
+                    li.appendChild(email);
+                    list.appendChild(li);
+                    ul.appendChild(list);
+                });
+                }).catch(function(error) {
+                console.log(error);
+                });
+
+            ul.appendChild(list);
+        </script>
+    </body>
+ 
+</html>
